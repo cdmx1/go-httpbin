@@ -40,16 +40,7 @@ type noBodyResponse struct {
 // A generic response for any incoming request that might contain a body (POST,
 // PUT, PATCH, etc).
 type bodyResponse struct {
-	Args    url.Values  `json:"args"`
-	Headers http.Header `json:"headers"`
-	Method  string      `json:"method"`
-	Origin  string      `json:"origin"`
-	URL     string      `json:"url"`
-
-	Data  string      `json:"data"`
-	Files url.Values  `json:"files"`
-	Form  url.Values  `json:"form"`
-	JSON  interface{} `json:"json"`
+	JSON interface{}
 }
 
 type cookiesResponse map[string]string

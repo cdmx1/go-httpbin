@@ -89,7 +89,7 @@ variables (or a combination of the two):
 | `-https-key-file` | `HTTPS_KEY_FILE` | HTTPS Server private key file | |
 | `-max-body-size` | `MAX_BODY_SIZE` | Maximum size of request or response, in bytes | 1048576 |
 | `-max-duration` | `MAX_DURATION` | Maximum duration a response may take | 10s |
-| `-port` | `PORT` | Port to listen on | 8080 |
+| `-port` | `PORT` | Port to listen on | 80 |
 | `-use-real-hostname` | `USE_REAL_HOSTNAME` | Expose real hostname as reported by os.Hostname() in the /hostname endpoint | false |
 | `-exclude-headers` | `EXCLUDE_HEADERS` | Drop platform-specific headers. Comma-separated list of headers key to drop, supporting wildcard suffix matching. For example: `"foo,bar,x-fc-*"` | - |
 

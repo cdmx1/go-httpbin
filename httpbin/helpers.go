@@ -166,8 +166,6 @@ func parseBody(w http.ResponseWriter, r *http.Request, resp *bodyResponse) error
 	if err != nil {
 		return err
 	}
-
-	// After reading the body to populate resp.Data, we need to re-wrap it in
 	// an io.Reader for further processing below
 	r.Body = io.NopCloser(bytes.NewBuffer(body))
 
@@ -185,44 +183,15 @@ func parseBody(w http.ResponseWriter, r *http.Request, resp *bodyResponse) error
 	case "text/html", "text/plain":
 		// no need for extra parsing, string body is already set above
 		return nil
-
-	case "application/x-www-form-urlencoded":
-		// r.ParseForm() does not populate r.PostForm for DELETE or GET
-		// requests, but we need it to for compatibility with the httpbin
-		// implementation, so we trick it with this ugly hack.
-		if r.Method == http.MethodDelete || r.Method == http.MethodGet {
-			originalMethod := r.Method
-			r.Method = http.MethodPost
-			defer func() { r.Method = originalMethod }()
-		}
-		if err := r.ParseForm(); err != nil {
-			return err
-		}
-		resp.Form = r.PostForm
-
-	case "multipart/form-data":
-		// The memory limit here only restricts how many parts will be kept in
-		// memory before overflowing to disk:
-		// https://golang.org/pkg/net/http/#Request.ParseMultipartForm
-		if err := r.ParseMultipartForm(1024); err != nil {
-			return err
-		}
-		resp.Form = r.PostForm
-		files, err := parseFiles(r.MultipartForm.File)
-		if err != nil {
-			return err
-		}
-		resp.Files = files
-
-	case "application/json":
-		if err := json.NewDecoder(r.Body).Decode(&resp.JSON); err != nil {
+	case ct == "application/json":
+		err := json.NewDecoder(r.Body).Decode(&resp.JSON)
+		if err != nil && err != io.EOF {
 			return err
 		}
 
 	default:
-		// If we don't have a special case for the content type, return it
-		// encoded as base64 data url
-		resp.Data = encodeData(body, contentType)
+		// If we don't have a special case for the content type, we'll just return it encoded as base64 data url
+		// we strip off any charset information, since we will re-encode the body
 	}
 
 	return nil

@@ -70,22 +70,13 @@ func (h *HTTPBin) Anything(w http.ResponseWriter, r *http.Request) {
 
 // RequestWithBody handles POST, PUT, and PATCH requests
 func (h *HTTPBin) RequestWithBody(w http.ResponseWriter, r *http.Request) {
-	resp := &bodyResponse{
-		Args:    r.URL.Query(),
-		Files:   nilValues,
-		Form:    nilValues,
-		Headers: getRequestHeaders(r, h.excludeHeadersProcessor),
-		Method:  r.Method,
-		Origin:  getClientIP(r),
-		URL:     getURL(r).String(),
-	}
+	resp := &bodyResponse{}
 
 	if err := parseBody(w, r, resp); err != nil {
 		writeError(w, http.StatusBadRequest, fmt.Errorf("error parsing request body: %w", err))
 		return
 	}
-
-	writeJSON(http.StatusOK, w, resp)
+	writeJSON(http.StatusOK, w, resp.JSON)
 }
 
 // Gzip returns a gzipped response

@@ -17,7 +17,7 @@ func main() {
 		httpbin.WithObserver(datadogObserver(statsdClient)),
 	)
 
-	listenAddr := "0.0.0.0:8080"
+	listenAddr := "0.0.0.0:80"
 	http.ListenAndServe(listenAddr, app)
 }
 
