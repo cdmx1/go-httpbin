@@ -76,6 +76,7 @@ func (h *HTTPBin) RequestWithBody(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, fmt.Errorf("error parsing request body: %w", err))
 		return
 	}
+
 	writeJSON(http.StatusOK, w, resp.JSON)
 }
 

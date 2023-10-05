@@ -40,6 +40,7 @@ type noBodyResponse struct {
 // A generic response for any incoming request that might contain a body (POST,
 // PUT, PATCH, etc).
 type bodyResponse struct {
+	Data string
 	JSON interface{}
 }
 

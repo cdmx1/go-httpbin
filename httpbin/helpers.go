@@ -183,7 +183,7 @@ func parseBody(w http.ResponseWriter, r *http.Request, resp *bodyResponse) error
 	case "text/html", "text/plain":
 		// no need for extra parsing, string body is already set above
 		return nil
-	case ct == "application/json":
+	case "application/json": // Fix the typo here
 		err := json.NewDecoder(r.Body).Decode(&resp.JSON)
 		if err != nil && err != io.EOF {
 			return err
