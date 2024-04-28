@@ -1,3 +1,3 @@
-module github.com/mccutchen/go-httpbin/v2
+module github.com/cdmx1/go-httpbin/v2
 
-go 1.18
+go 1.22

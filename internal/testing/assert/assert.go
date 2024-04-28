@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mccutchen/go-httpbin/v2/internal/testing/must"
+	"github.com/cdmx1/go-httpbin/v2/internal/testing/must"
 )
 
 // Equal asserts that two values are equal.

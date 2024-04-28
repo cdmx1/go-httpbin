@@ -3,10 +3,10 @@
 A reasonably complete and well-tested golang port of [Kenneth Reitz][kr]'s
 [httpbin][httpbin-org] service, with zero dependencies outside the go stdlib.
 
-[![GoDoc](https://pkg.go.dev/badge/github.com/mccutchen/go-httpbin/v2)](https://pkg.go.dev/github.com/mccutchen/go-httpbin/v2)
-[![Build status](https://github.com/mccutchen/go-httpbin/actions/workflows/test.yaml/badge.svg)](https://github.com/mccutchen/go-httpbin/actions/workflows/test.yaml)
-[![Coverage](https://codecov.io/gh/mccutchen/go-httpbin/branch/main/graph/badge.svg)](https://codecov.io/gh/mccutchen/go-httpbin)
-[![Docker Pulls](https://badgen.net/docker/pulls/mccutchen/go-httpbin?icon=docker&label=pulls)](https://hub.docker.com/r/mccutchen/go-httpbin/)
+[![GoDoc](https://pkg.go.dev/badge/github.com/cdmx1/go-httpbin/v2)](https://pkg.go.dev/github.com/cdmx1/go-httpbin/v2)
+[![Build status](https://github.com/cdmx1/go-httpbin/actions/workflows/test.yaml/badge.svg)](https://github.com/cdmx1/go-httpbin/actions/workflows/test.yaml)
+[![Coverage](https://codecov.io/gh/cdmx1/go-httpbin/branch/main/graph/badge.svg)](https://codecov.io/gh/cdmx1/go-httpbin)
+[![Docker Pulls](https://badgen.net/docker/pulls/cdmx1/go-httpbin?icon=docker&label=pulls)](https://hub.docker.com/r/cdmx1/go-httpbin/)
 
 
 ## Usage
@@ -17,10 +17,10 @@ Docker images are published to [Docker Hub][docker-hub]:
 
 ```bash
 # Run http server
-$ docker run -P mccutchen/go-httpbin
+$ docker run -P cdmx1/go-httpbin
 
 # Run https server
-$ docker run -e HTTPS_CERT_FILE='/tmp/server.crt' -e HTTPS_KEY_FILE='/tmp/server.key' -p 8080:8080 -v /tmp:/tmp mccutchen/go-httpbin
+$ docker run -e HTTPS_CERT_FILE='/tmp/server.crt' -e HTTPS_KEY_FILE='/tmp/server.key' -p 8080:8080 -v /tmp:/tmp cdmx1/go-httpbin
 ```
 
 ### Standalone binary
@@ -43,7 +43,7 @@ $ go-httpbin -host 127.0.0.1 -port 8081 -https-cert-file ./server.crt -https-key
 
 ### Unit testing helper library
 
-The `github.com/mccutchen/go-httpbin/httpbin/v2` package can also be used as a
+The `github.com/cdmx1/go-httpbin/httpbin/v2` package can also be used as a
 library for testing an application's interactions with an upstream HTTP
 service, like so:
 
@@ -57,7 +57,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mccutchen/go-httpbin/v2/httpbin"
+	"github.com/cdmx1/go-httpbin/v2/httpbin"
 )
 
 func TestSlowResponse(t *testing.T) {
@@ -104,13 +104,13 @@ variables (or a combination of the two):
 To add go-httpbin to an existing golang project:
 
 ```
-go get -u github.com/mccutchen/go-httpbin/v2
+go get -u github.com/cdmx1/go-httpbin/v2
 ```
 
 To install the `go-httpbin` binary:
 
 ```
-go install github.com/mccutchen/go-httpbin/v2/cmd/go-httpbin
+go install github.com/cdmx1/go-httpbin/v2/cmd/go-httpbin
 ```
 
 
@@ -155,7 +155,7 @@ public internet, consider tuning it appropriately:
    - [examples/custom-instrumentation] instruments every request using DataDog,
      based on the built-in [Observer] mechanism.
 
-   - [mccutchen/httpbingo.org] is the code that powers the public instance of
+   - [cdmx1/httpbingo.org] is the code that powers the public instance of
      go-httpbin deployed to [httpbingo.org], which adds customized structured
      logging using [zerolog] and further hardens the HTTP server against
      malicious clients by tuning lower-level timeouts and limits.
@@ -180,41 +180,3 @@ make run
 make image
 make imagepush
 ```
-
-## Motivation & prior art
-
-I've been a longtime user of [Kenneith Reitz][kr]'s original
-[httpbin.org][httpbin-org], and wanted to write a golang port for fun and to
-see how far I could get using only the stdlib.
-
-When I started this project, there were a handful of existing and incomplete
-golang ports, with the most promising being [ahmetb/go-httpbin][ahmet]. This
-project showed me how useful it might be to have an `httpbin` _library_
-available for testing golang applications.
-
-### Known differences from other httpbin versions
-
-Compared to [the original][httpbin-org]:
- - No `/brotli` endpoint (due to lack of support in Go's stdlib)
- - The `?show_env=1` query param is ignored (i.e. no special handling of
-   runtime environment headers)
- - Response values which may be encoded as either a string or a list of strings
-   will always be encoded as a list of strings (e.g. request headers, query
-   params, form values)
-
-Compared to [ahmetb/go-httpbin][ahmet]:
- - No dependencies on 3rd party packages
- - More complete implementation of endpoints
-
-
-[ahmet]: https://github.com/ahmetb/go-httpbin
-[docker-hub]: https://hub.docker.com/r/mccutchen/go-httpbin/
-[examples/custom-instrumentation]: ./examples/custom-instrumentation/
-[httpbin-org]: https://httpbin.org/
-[httpbin-repo]: https://github.com/kennethreitz/httpbin
-[httpbingo.org]: https://httpbingo.org/
-[kr]: https://github.com/kennethreitz
-[mccutchen/httpbingo.org]: https://github.com/mccutchen/httpbingo.org
-[Observer]: https://pkg.go.dev/github.com/mccutchen/go-httpbin/v2/httpbin#Observer
-[Production considerations]: #production-considerations
-[zerolog]: https://github.com/rs/zerolog

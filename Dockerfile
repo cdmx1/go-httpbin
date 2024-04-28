@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.3
-FROM golang:1.21 AS build
+FROM golang:1.22 AS build
 
-WORKDIR /go/src/github.com/mccutchen/go-httpbin
+WORKDIR /go/src/github.com/cdmx1/go-httpbin
 
 COPY . .
 
@@ -10,7 +10,7 @@ RUN --mount=type=cache,id=gobuild,target=/root/.cache/go-build \
 
 FROM gcr.io/distroless/base
 
-COPY --from=build /go/src/github.com/mccutchen/go-httpbin/dist/go-httpbin* /bin/
+COPY --from=build /go/src/github.com/cdmx1/go-httpbin/dist/go-httpbin* /bin/
 
 EXPOSE 8080
 CMD ["/bin/go-httpbin"]

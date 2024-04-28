@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mccutchen/go-httpbin/v2/httpbin/digest"
+	"github.com/cdmx1/go-httpbin/v2/httpbin/digest"
 )
 
 var nilValues = url.Values{}

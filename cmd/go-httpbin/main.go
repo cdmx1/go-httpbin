@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/mccutchen/go-httpbin/v2/httpbin/cmd"
+	"github.com/cdmx1/go-httpbin/v2/httpbin/cmd"
 )
 
 func main() {

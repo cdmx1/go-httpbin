@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mccutchen/go-httpbin/v2/httpbin"
+	"github.com/cdmx1/go-httpbin/v2/httpbin"
 )
 
 // To update, run:
